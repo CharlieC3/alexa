@@ -2,4 +2,4 @@
 Alexa prg-lvl-up
 
 ## Alexa Services
-(e.g. NFL Schedule)
+EXAMPLE: NFL Schedule - <Team Name>
