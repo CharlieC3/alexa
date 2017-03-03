@@ -1,0 +1,14 @@
+EspnAskHeadlinesIntent for top headlines
+EspnAskHeadlinesIntent for current headlines
+EspnAskHeadlinesIntent for top news
+EspnAskHeadlinesIntent for current news
+
+EspnRandomHeadlineIntent for random headline
+EspnRandomHeadlineIntent for random news
+EspnRandomHeadlineIntent expand story
+
+EspnAskTopGamesBySport top {sport} games for today
+EspnAskTopGamesBySport for top {sport} games for today
+EspnAskLiveGamesBySport top {sport} games playing right now
+EspnAskLiveGamesBySport top {sport} games currently playing
+EspnAskTopScoresBySport top final scores for {sport} games

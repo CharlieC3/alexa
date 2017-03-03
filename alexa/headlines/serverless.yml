@@ -1,0 +1,20 @@
+# The service name
+service: espn-headlines
+
+# The provider
+provider:
+  name: aws
+  runtime: nodejs4.3
+
+# you can overwrite defaults here
+#  stage: dev
+#  region: us-east-1
+
+functions:
+  espn:
+    handler: handler.headlines
+
+    events:
+      - http:
+          path: espn/headlines
+          method: get

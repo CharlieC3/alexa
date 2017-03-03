@@ -1,0 +1,21 @@
+# The service name
+service: espn-scoreboard
+
+# The provider
+provider:
+  name: aws
+  runtime: nodejs4.3
+
+# you can overwrite defaults here
+#  stage: dev
+#  region: us-east-1
+
+functions:
+  espn:
+    handler: handler.espn
+
+    # This will eventually change to "- alexaSkill"
+    events:
+      - http:
+          path: espn/scoreboard
+          method: get

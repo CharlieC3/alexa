@@ -1,0 +1,28 @@
+{
+  "name": "test-app",
+  "version": "1.0.0",
+  "description": "test",
+  "main": "handler.js",
+  "author": "Sean Humbarger",
+  "license": "ESPN",
+  "repository": {
+    "type": "git",
+    "url": "https://code.espn.com/be-ref-app/serverless-nodejs.git"
+  },
+  "dependencies": {
+    "request": "^2.79.0",
+    "resilient": "0.3.4",
+    "striptags": "3.0.1"
+  },
+  "devDependencies": {
+    "mocha": "2.3.*",
+    "grunt-mocha": "1.0.*",
+    "webpack": "1.12.*",
+    "json-loader": "0.5.*",
+    "expose-loader": "0.7.*"
+  },
+  "publishConfig": {
+    "registry": "http://maven2.corp.espn3.com/content/repositories/espn-npm/",
+    "tag": "latest"
+  }
+}

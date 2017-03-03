@@ -1,0 +1,13 @@
+# package directories
+node_modules
+jspm_packages
+
+# Istanbul
+coverage
+
+# Serverless directories
+.serverless
+
+# IDEA
+.idea
+**/*.iml

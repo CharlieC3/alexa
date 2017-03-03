@@ -1,0 +1,52 @@
+{
+  "intents": [
+    {
+      "intent": "EspnAskHeadlinesIntent"
+    },
+    {
+      "intent": "EspnRandomHeadlineIntent"
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    },
+    {
+      "intent": "AMAZON.StopIntent"
+    },
+    {
+      "intent": "AMAZON.CancelIntent"
+    },
+    {
+      "intent": "AMAZON.YesIntent"
+    },
+    {
+      "intent": "AMAZON.NoIntent"
+    },
+    {
+      "intent": "EspnAskTopGamesBySport",
+      "slots": [
+        {
+          "name": "sport",
+          "type": "ESPN_SPORT"
+        }
+      ]
+    },
+    {
+      "intent": "EspnAskTopScoresBySport",
+      "slots": [
+        {
+          "name": "sport",
+          "type": "ESPN_SPORT"
+        }
+      ]
+    },
+    {
+      "intent": "EspnAskLiveGamesBySport",
+      "slots": [
+        {
+          "name": "sport",
+          "type": "ESPN_SPORT"
+        }
+      ]
+    }
+  ]
+}
