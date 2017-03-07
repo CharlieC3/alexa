@@ -1,6 +1,6 @@
 CHALLENGE 3 - ALEXA
 
-RadioUp - Podcastaways
+RadioUp - Show-castaways
 
 Podcastaways (Podcast query service) 
 
