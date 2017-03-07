@@ -1,0 +1,50 @@
+{
+    "intents": [
+        {
+            "intent": "GetShow",
+            "slots": [{
+                "name": "Show",
+                "type": "SHOW_TEXT"
+            }]
+        },
+        {
+            "intent": "PlayAudio"
+        },
+        {
+            "intent": "GetList"
+        },
+        {
+            "intent": "GetRandom"
+        },
+        {
+            "intent": "AMAZON.PauseIntent"
+        },
+        {
+            "intent": "AMAZON.ResumeIntent"
+        },
+        {
+            "intent": "AMAZON.NextIntent"
+        },
+        {
+            "intent": "AMAZON.PreviousIntent"
+        },
+        {
+            "intent": "AMAZON.HelpIntent"
+        },
+        {
+            "intent": "AMAZON.StopIntent"
+        },
+        {
+            "intent": "AMAZON.CancelIntent"
+        },
+        {
+            "intent": "AMAZON.StartOverIntent"
+        },
+        {
+            "intent": "AMAZON.YesIntent"
+        },
+        {
+            "intent": "AMAZON.NoIntent"
+        }
+    ]
+}
