@@ -22,7 +22,7 @@ function getShows() {
 
 }
 
-getShows()
+//getShows()
 
 
 
