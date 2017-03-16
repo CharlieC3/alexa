@@ -17,7 +17,8 @@
     "grunt-mocha": "1.0.*",
     "webpack": "1.12.*",
     "json-loader": "0.5.*",
-    "expose-loader": "0.7.*"
+    "expose-loader": "0.7.*",
+    "aws-sdk": "2.28.*"
   },
   "publishConfig": {
     "registry": "http://maven2.corp.espn3.com/content/repositories/espn-npm/",
