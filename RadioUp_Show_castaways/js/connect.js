@@ -7,9 +7,8 @@ var getShows = showsMethods.getShows;
 
 var url = 'mongodb://10.79.86.205:27017/RadioUp_Show_castaways';
 var dbTable;
-//var db = new Db('shows', url);  
 
-function connecToDB() {
+function insertToDB(items) {
     MongoClient.connect(url, function(err, db) {
 
 
@@ -18,37 +17,19 @@ function connecToDB() {
             return;
         }
 
-        dbTable = db;
-        // item = {
-        //     "id": 1,
-        //     "headline": "Test Headline",
-        //     "description": "Some Description",
-        //     "link": "Some Link"
-        // }
+        console.log("Connected to db at " + url);
 
-        // item.id = 1;
-        // item.headline = "Test Headline";
-        // item.description = "Some Description";
-        // item.link = "Some Link";
-            
+        for(var i = 0; i < items.length; i++) {
+            db.collection('shows').insertOne(items[i]);
+        }
 
-        //var r = db.collection('shows').insertOne(item);
+        db.close();
     });
 
 }
 
-function closeDB(db) {
 
-        db.close();
-}
-
-
-function insertToDB (item) {
-    db.collection('shows').insertOne(item);
-}
-
-
-function getShowItems(data){
+function writeShowItems(data){
 
    var shows = data.shows;
    var allShows = [];
@@ -60,14 +41,12 @@ function getShowItems(data){
         "headline": show.headline,
         "link": show.links.api.recordings.href
        })
-  }
 
-  console.log( allShows );
+    }
 
-  // var map = new Map;
-  
-  // for(var show in shows){
-   
+    insertToDB(allShows);
+
+  // console.log( allShows );   
 }
      
-getShows( getShowItems )
+getShows( writeShowItems )
