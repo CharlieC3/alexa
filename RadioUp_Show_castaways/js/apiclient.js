@@ -13,7 +13,7 @@ var getShows = function(callback) {
 
     client.get(showsPath, function (err, res) {
       if (res.status === 200) {
-        console.log('Success:', res.data)
+        //console.log('Success:', res.data)
         return callback(res.data)
       } else {
         console.log('Error:', err)
@@ -32,7 +32,7 @@ var getRecording = function(callback, id) {
 
     client.get(recordPath, function (err, res) {
       if (res.status === 200) {
-        //console.log('Success:', res.data)
+        console.log('Success:', res.data)
         return callback(res.data)
       } else {
         console.log('Error:', err)

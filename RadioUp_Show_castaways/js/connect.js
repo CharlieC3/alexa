@@ -48,25 +48,26 @@ function insertToDB (item) {
 }
 
 
-function allShows(){
+function getShowItems(data){
 
-    var showsJSON = getShows();
-
-   //var shows = JSON.parse( showsJSON );
-   //var allShows = [];
-
-   console.log( "i am: ", typeof showsJSON )
+   var shows = data.shows;
+   var allShows = [];
 
    for(var i = 0; i < shows.length; i++) {
-       // console.log("shows: ", shows[i] );
+        var show = shows[i];
+       allShows.push({
+        "id": show.id,
+        "headline": show.headline,
+        "link": show.links.api.recordings.href
+       })
+  }
 
-  //}
-  // console.log(shows[i]);
+  console.log( allShows );
 
   // var map = new Map;
   
   // for(var show in shows){
    
-  }
-
-getShowItems();
+}
+     
+getShows( getShowItems )
