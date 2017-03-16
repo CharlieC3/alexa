@@ -36,8 +36,9 @@ function writeShowItems(data){
    for(var i = 0; i < shows.length; i++) {
         var show = shows[i];
        allShows.push({
-        "id": show.id,
+        "_id": show.id,
         "headline": show.headline,
+        "description": show.description,
         "link": show.links.api.recordings.href
        })
 
@@ -73,5 +74,5 @@ function getShowsFromDB(){
 }
 
 
-//getShows( writeShowItems )
-//getShowsFromDB();
+getShows( writeShowItems )
+getShowsFromDB();
