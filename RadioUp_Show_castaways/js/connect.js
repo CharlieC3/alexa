@@ -10,7 +10,7 @@ var dbTable;
 
 function insertToDB(items) {
     MongoClient.connect(url, function(err, db) {
-
+      cleanDB(db);
 
         if( err !== null ){
             console.log("Could not connect to Mongodb at " + url)
@@ -46,7 +46,12 @@ function writeShowItems(data){
 
     insertToDB(allShows);
 
-  // console.log( allShows );   
+  // console.log( allShows );
 }
-     
+
+function cleanDB(db){
+  db.collection('shows').remove();
+}
+
+
 getShows( writeShowItems )
