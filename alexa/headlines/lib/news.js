@@ -1,9 +1,9 @@
 // Private variables
 var resilient = require('resilient');
+
 var servers = [
     'http://api.espn.com/v1/sports/news/headlines?apikey=_____'
 ];
-
 
 // Class
 function News() {
