@@ -10,14 +10,14 @@ var dbTable;
 
 function insertToDB(items) {
     MongoClient.connect(url, function(err, db) {
-      cleanDB(db);
 
         if( err !== null ){
             console.log("Could not connect to Mongodb at " + url)
             return;
         }
 
-        console.log("Connected to db at " + url);
+        console.log("Connected to DB at " + url);
+        cleanDB(db);
 
         for(var i = 0; i < items.length; i++) {
             db.collection('shows').insertOne(items[i]);
@@ -25,7 +25,6 @@ function insertToDB(items) {
 
         db.close();
     });
-
 }
 
 
@@ -50,8 +49,29 @@ function writeShowItems(data){
 }
 
 function cleanDB(db){
+  console.log("Performing intitial DB cleanup ");
   db.collection('shows').remove();
+  console.log("Performing intitial DB cleanup ");
+}
+
+function getShowsFromDB(){
+  MongoClient.connect(url, function(err, db) {
+
+      if( err !== null ){
+          console.log("Could not connect to Mongodb at " + url)
+          return;
+      }
+
+      console.log("Connected to DB at " + url);
+
+      // get shows from DB
+      var showsFromDB = db.collection('shows').find();
+      console.log(showsFromDB);
+
+      db.close();
+  });
 }
 
 
-getShows( writeShowItems )
+//getShows( writeShowItems )
+//getShowsFromDB();
