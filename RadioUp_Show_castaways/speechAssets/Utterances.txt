@@ -1,0 +1,49 @@
+GetShow {Show}
+GetShow find {Show}
+GetShow get {Show}
+GetShow play a {Show}
+
+GetList get me a list of shows
+GetList get a list of shows
+GetList give me a list of shows
+GetList list shows
+GetList list all shows
+
+PlayAudio begin show
+PlayAudio begin the show
+PlayAudio begin playing the show
+PlayAudio start show
+PlayAudio start the show
+PlayAudio start playing the show
+PlayAudio play the show
+PlayAudio to begin show
+PlayAudio to begin the show
+PlayAudio to begin playing the show
+PlayAudio to start show
+PlayAudio to start the show
+PlayAudio to start playing the show
+PlayAudio to play the show
+
+GetRandom begin random show
+GetRandom begin a random show
+GetRandom begin playing a random show
+GetRandom begin playing random show
+GetRandom start random show
+GetRandom start a random show
+GetRandom start playing a random show
+GetRandom start playing random show
+GetRandom play a random show
+GetRandom play random show
+GetRandom play random
+GetRandom to begin random show
+GetRandom to begin a random show
+GetRandom to begin playing a random show
+GetRandom to start random show
+GetRandom to start a random show
+GetRandom to start playing a random show
+GetRandom to start playing random show
+GetRandom get me a random show
+GetRandom find me a random show
+GetRandom find a random show
+GetRandom find random show
+GetRandom play random show
