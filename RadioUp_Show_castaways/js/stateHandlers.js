@@ -1,17 +1,19 @@
  'use strict';
 
-var Alexa = require('alexa-sdk');
-var allData = require('./audioAssets');
-var constants = require('./constants');
-
 var https = require('https');
 
+var Alexa = require('alexa-sdk');
+var constants = require('./constants');
+
+var allData = require('./audioAssets');
 var audioData = allData.audioData;
 var showData = allData.showData;
 var allShows = allData.allShows;
 
 var currentShow = null;
 var listSubSetSize = 3;
+var currentSet = 1;
+var currentIndex = 0;
 
 var stateHandlers = {
     startModeIntentHandlers : Alexa.CreateStateHandler(constants.states.START_MODE, {
@@ -76,7 +78,8 @@ var stateHandlers = {
             //  Change state to START_MODE
             this.handler.state = constants.states.START_MODE;
             
-            sendPlainMessage.call(this, 'STARTMODE: Requesting a List of all the Shows!!'); 
+            //sendPlainMessage.call(this, 'STARTMODE: Requesting a List of all the Shows!!'); 
+            processShowListRequest.call(this, constants.states.START_MODE);
         },
         'GetRandom' : function () {
             // Initialize Attributes
@@ -144,26 +147,7 @@ var stateHandlers = {
             sendPlainMessage.call(this, 'PLAYMODE: Requesting a show: ' + show);    
         },
         'GetList' : function () {
-            var message = "", reprompt = "";
-            if(!!this.attributes['showsLoaded']) {
-                //this.attributes['ListIndex'] += listSubSetSize;
-                
-            } else {
-                this.attributes['showsLoaded'] = true;
-                this.attributes['ListIndex'] = listSubSetSize;
-                
-                var index = this.attributes['ListIndex'];
-                var start = index-listSubSetSize;
-                var end = index, i;
-                
-                for (i = start; i < end; i++) {
-                    message = message + allShows[i].headline + ', ';
-                }
-                message = "Available Shows are " + message + 'want more??';
-                //message = 'PLAYMODE: ' + index + ' - ' + start + ' - ' + end;                  
-            }
-            
-            sendPlainMessage.call(this, message);  
+            processShowListRequest.call(this, constants.states.PLAY_MODE); 
         },
         'GetRandom' : function () {
             sendPlainMessage.call(this, 'PLAYMODE: Requesting a random show!!');  
@@ -190,6 +174,15 @@ var stateHandlers = {
             sendPlainMessage.call(this, 'Sorry, I could not understand. You can say, Next or Previous to navigate through the recordings.');
         }
     }),
+    remoteControllerHandlers : Alexa.CreateStateHandler(constants.states.PLAY_MODE, {
+        /*
+         *  All Requests are received using a Remote Control. Calling corresponding handlers for each of them.
+         */
+        'PlayCommandIssued' : function () { controller.play.call(this) },
+        'PauseCommandIssued' : function () { controller.stop.call(this) },
+        'NextCommandIssued' : function () { controller.playNext.call(this) },
+        'PreviousCommandIssued' : function () { controller.playPrevious.call(this) }
+    }),
     resumeDecisionModeIntentHandlers : Alexa.CreateStateHandler(constants.states.RESUME_DECISION_MODE, {
         /*
          *  All Intent Handlers for state : RESUME_DECISION_MODE
@@ -209,7 +202,7 @@ var stateHandlers = {
             sendPlainMessage.call(this, 'RESUMING: Requesting a show: ' + show);    
         },
         'GetList' : function () {
-            sendPlainMessage.call(this, 'RESUMING: Requesting a List of all the Shows!! ');  
+            processShowListRequest.call(this, constants.states.RESUME_DECISION_MODE);  
         },
         'GetRandom' : function () {
             sendPlainMessage.call(this, 'RESUMING: Requesting a random show!!');  
@@ -392,11 +385,44 @@ var controller = function () {
 
 function sendPlainMessage(message, reprompt) {
     if(message) {
-        if(!reprompt) reprompt = message;
-        this.response.speak(message).listen(reprompt);
+        if(!!reprompt) {
+            this.response.speak(message).listen(reprompt);
+        } else {
+            this.response.speak(message);
+        }
         this.emit(':responseReady');
     }
 }
+
+function processShowListRequest(state) {
+    var message = "", reprompt;
+    var lastShow = false;
+    var start = currentIndex;
+    var end = (listSubSetSize * currentSet), i;
+    var total = allShows.length;
+    
+    if(end > total) {
+        end = total;
+        lastShow = true;
+    }
+    
+    for (i = start; i < end; i++) {
+        message = message + allShows[i].headline + ', ';
+    }
+    if(lastShow) {
+        message = 'Last Available Shows are ' + message + '. Get show by name, start over or stop.';
+        currentSet = 1;
+        currentIndex = 0;
+    }
+    else {
+        message = 'Available Shows are ' + message + '. Get show by name, get more shows or stop.';    
+        currentSet++;
+        currentIndex = end;
+    }
+    
+    sendPlainMessage.call(this, message, reprompt);
+}
+
 function canThrowCard() {
     /*
      * To determine when can a card should be inserted in the response.

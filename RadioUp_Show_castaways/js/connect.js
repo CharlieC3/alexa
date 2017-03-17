@@ -1,11 +1,13 @@
 var fs = require('fs'), MongoClient = require('mongodb').MongoClient;
 var showsMethods = require('./apiclient');
+var constants = require('./constants');
 
 var getShows = showsMethods.getShows;
 
 //var argv = require('minimist')(process.argv.slice(2));
 
-var url = 'mongodb://10.79.86.205:27017/RadioUp_Show_castaways';
+var url = constants.mongodbURL;
+// var url = 'mongodb://10.79.86.205:27017/RadioUp_Show_castaways';
 var dbTable;
 
 function insertToDB(items) {

@@ -9,6 +9,15 @@ GetList give me a list of shows
 GetList list shows
 GetList list all shows
 
+GetList get me more
+GetList get me more shows
+GetList get more
+GetList get more shows
+GetList more
+
+GetList start over
+GetList again
+
 PlayAudio begin show
 PlayAudio begin the show
 PlayAudio begin playing the show

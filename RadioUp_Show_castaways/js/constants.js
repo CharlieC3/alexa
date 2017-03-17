@@ -19,7 +19,9 @@ module.exports = Object.freeze({
     // API show endpoint
     showAPI : 'http://api.espn.com/v1/audio/shows/',
     //  DynamoDB Table name
-    dynamoDBTableName : 'showTable-DynamoDB',
+    dynamoDBTableName : 'RadioUp_Show_castaways',
+    // Mongodb Table url
+    mongodbURL : 'mongodb://10.79.86.205:27017/RadioUp_Show_castaways',
     /*
      *  States:
      *  START_MODE : Welcome state when the audio list has not begun.
