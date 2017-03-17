@@ -4,6 +4,9 @@ var servers = [
     'http://api.espn.com'
 ];
 
+var allShows = [];
+var doneFlag = false;
+
 //Return a list of shows
 // var getShows = function(callback) {
 
@@ -86,98 +89,52 @@ function getRecording(id) {
 function buildShowData(data) {
 
   var shows = data.shows;
-  var allShows = [];
+  // var allShows = [];
 
    console.log(shows.length);
 
-   return new Promise(function (resolve, reject){
      shows.forEach(function (show) {
-         var recordingData;
 
-         console.log('Outside the proimise .. Processing id ' + show.id);
-         getRecording(show.id).then(function (data) {
-              recordingData = data.recordings;
-          }, function(error, results) {
-              allShows.push({
-                "id": show.id,
-                "headline": show.headline,
-                "description": show.description,
-                "link": recordingData[0].links.source.default.href
-              });
-
-              if (shows.length === allShows.length) {
-                console.log(allShows);
-                return resolve(allShows);
-              }
-          });
+        allShows.push({
+          "id": show.id,
+          "headline": show.headline,
+          "description": show.description,
+          "link": "to be filled"
+        });
 
       });
-   });
+ return allShows;
 }
 
-function buildShowData2(data) {
 
-  var shows = data.shows;
-  var allShows = [];
+
+function addRecordingData(data){
+  var shows = data;
 
   console.log(shows.length);
-
-  promiseWhile(function() {
-      // Condition for stopping
-      console.log("end Condition");
-      return shows.length == allShows.length;
-  }, function() {
-      // The function to run, should return a promise
-      return new Promise(function(resolve, reject) {
-           var recordingData = data.recordings;
-
-            allShows.push({
-              "id": show.id,
-              "headline": show.headline,
-              "description": show.description,
-              "link": recordingData[0].links.source.default.href
-            });
-
-      });
-  }).then(function() {
-      // Notice we can chain it because it's a Promise, this will run after completion of the promiseWhile Promise!
-      console.log(allShows);
-      console.log("Done");
-  });
   
-}
+  // var prevPromise = Promise.resolve(); // initial Promise always resolves
 
-function buildShowData3(data) {
-  var shows = data.shows;
-  var allShows = [];
-  var promises = [];
+  return new Promise(function (resolve, reject){
+    shows.forEach(function(show) {  
+      
+      getRecording(show.id).then(function(data) {
+        var recordingData = data.recordings;
+        var recording = recordingData[0];
+        console.log(recording);
+        // console.log('**************', recording.links.source.default.href);
 
-  console.log(shows.length);
+        show.link = recording.links.source.default.href;
+        allShows.push(item);
 
-  shows.forEach(function(show) {
-    console.log(show);
-    promises.push(getRecording(show.id)); // push the Promises to our array
-  });
+        // console.log(allShows);
 
-  console.log(promises.length);
-  console.log(promises[0].recordingData[0].links);
+      }).catch(function(error) {
+        console.log(error);
+      });
 
-  Promise.all(promises).then(function(dataArr) {
-    dataArr.forEach(function(data) {
-      var recordingData = data.recordings;
-
-            allShows.push({
-              // "id": show.id,
-              // "headline": show.headline,
-              // "description": show.description,
-              "link": recordingData[0].links.source.default.href
-            });
     });
-  }).catch(function(err) {
-    console.log(err);
   });
-
-  return allShows;
 }
 
 // function addRecording(shows, id) {
@@ -217,6 +174,85 @@ function buildShowData3(data) {
 
 // Usage:
 getShows().then(function(data) {
-    console.log("i am here ---> " + data);
-    buildShowData2(data);
-  });
+    // console.log("i am here ---> " + data);
+    return buildShowData(data);
+
+  }).then(function(data) {
+    console.log(data);
+    addRecordingData(data).then(function(data) {
+        console.log(allShows);
+    });
+
+ });
+
+
+
+  //********************** seriously
+//   function buildShowData2(data) {
+
+//   var shows = data.shows;
+//   var allShows = [];
+
+//   console.log(shows.length);
+
+//   promiseWhile(function() {
+//       // Condition for stopping
+//       console.log("end Condition");
+//       return shows.length == allShows.length;
+//   }, function() {
+//       // The function to run, should return a promise
+//       return new Promise(function(resolve, reject) {
+//            var recordingData = data.recordings;
+//            var recording = recordingData[0];
+
+//             allShows.push({
+//               "id": show.id,
+//               "headline": show.headline,
+//               "description": show.description,
+//               "link": recording.links.source.default.href
+//             });
+
+//       });
+//   }).then(function() {
+//       // Notice we can chain it because it's a Promise, this will run after completion of the promiseWhile Promise!
+//       console.log(allShows);
+//       console.log("Done");
+//   });
+  
+// }
+
+// function buildShowData3(data) {
+//   var shows = data.shows;
+//   var allShows = [];
+//   var promises = [];
+
+//   console.log(shows.length);
+
+//   shows.forEach(function(show) {
+//     // console.log(show);
+//     promises.push(getRecording(show.id)); // push the Promises to our array
+//   });
+
+//   console.log(promises.length);
+//   // console.log(promises[0].recordingData[0].links);
+
+//   Promise.all(promises).then(function(dataArr) {
+//     dataArr.forEach(function(data) {
+//       var recordingData = data.recordings;
+//       var recording = recordingData[0];
+//       console.log(data);
+//             allShows.push({
+//               // "id": show.id,
+//               // "headline": show.headline,
+//               // "description": show.description,
+//               "link": recording.links.source.default.href
+//             });
+//     });
+
+
+//     return allShows;
+//   }).catch(function(err) {
+//     console.log(err);
+//   });
+
+// }
